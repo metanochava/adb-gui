@@ -1,0 +1,53 @@
+{% extends "gui/main.html" %}
+{% block title %}
+    {{request.resolver_match.kwargs.id }}
+{% endblock %}
+{% block content %}
+<main class="col-md-12 ms-sm-auto col-lg-12 px-md-6">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-3 border-bottom">
+        <h3 class="h3">Packages </h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-left">
+    <div class="col-md-12">
+        <div class="card mb-12 rounded-12 shadow-sm">
+          <div class="card-header py-6">
+            <h4 class="my-0 fw-normal">{{count }}  packages</h4>
+          </div>
+
+
+
+          <div class="card-body text-left">
+
+              <table  width="100%">
+
+                  {% for file in packages %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'files' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}/{{file}}&phone_path={{phone_path}}" > <> </a> {{file}}
+                        </td>
+                    </tr>
+                  {% endfor %}
+
+
+              </table>
+
+<!--            <button type="button" class="w-100 btn btn-md btn-primary">Get started</button>-->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</main>
+
+<script>
+
+    function xx(x){
+        alert(x+7)
+    }
+</script>
+
+
+
+{% endblock %}
+

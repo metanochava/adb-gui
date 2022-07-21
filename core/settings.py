@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import sys
+from os.path import abspath, dirname, join
+BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,7 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'djcore-chaecure--ru^02gthwe8&*rkk&xe5*wx1ve%$hutlrnu+-7+n@l*@!gv*n'
-
+ADB_PATH = '/Users/metanochavana/Desktop/adb' # abd folther was this platform-tools
+ADB_WORK_PATH_ROOT = '/Users/metanochavana/Desktop/ADB_WORK_DIR'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -31,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'gui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +63,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['%s/templates' %(PROJECT_DIR)],
+        'APP_DIRS': True,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,7 +125,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+#
+# sys.path.append(join(dirname(__file__), "../core"))
+# PROJECT_ROOT = abspath(dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# MEDIA_URL = '/media/'
+# STATIC_URL = '/static/'
+# MEDIA_ROOT = join(PROJECT_ROOT, '../media/')
+# STATIC_ROOT = join(PROJECT_ROOT, '../static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

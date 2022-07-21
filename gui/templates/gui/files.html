@@ -1,0 +1,93 @@
+{% extends "gui/main.html" %}
+{% block title %}
+    {{request.resolver_match.kwargs.id }}
+{% endblock %}
+{% block content %}
+<main class="col-md-12 ms-sm-auto col-lg-12 px-md-6">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-1 pb-1 mb-3 border-bottom">
+        <h3 class="h3">Files </h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-left">
+    <div class="col-md-6">
+        <div class="card mb-6 rounded-6 shadow-sm">
+          <div class="card-header py-6">
+            <h4 class="my-0 fw-normal">Work dir: <b style="color:green;">{{request.resolver_match.kwargs.id}}</b></h4>
+          </div>
+
+          <div class="card-body text-left">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      {% for lp in local_paths %}
+                          <li class="breadcrumb-item"> <a href="{% url 'files' id=request.resolver_match.kwargs.id %}?local_path={{lp.value}}&phone_path={{phone_path}}">{{lp.key}}</a></li>
+                      {% endfor %}
+                  </ol>
+              </nav>
+              <table  width="100%">
+
+                  {% for file in lfiles %}
+                    {% if file != '.' %}
+                        {% if  file != ".DS_Store"  %}
+                            <tr>
+                                <td   align="right" >
+                                  <a href="{% url 'files' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}/{{file}}&phone_path={{phone_path}}" >{{file}} </a>
+                                  <a style="text-decoration:none;" href="{% url 'up_down' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}/{{file}}&phone_path={{phone_path}}&para=phone" > &nbsp; &nbsp; > </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              </table>
+
+<!--            <button type="button" class="w-100 btn btn-md btn-primary">Get started</button>-->
+          </div>
+        </div>
+      </div>
+    <div class="col-md-6 ">
+        <div class="card mb-6 rounded-6 shadow-sm">
+          <div class="card-header py-6">
+            <h4 class="my-0 fw-normal">Phone id: <b style="color:green;">{{request.resolver_match.kwargs.id}}</b></h4>
+          </div>
+
+          <div class="card-body text-left">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      {% for pp in phone_paths %}
+                      <li class="breadcrumb-item"> <a href="{% url 'files' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}&phone_path={{pp.value}}">{{pp.key}} </a></li>
+                      {% endfor %}
+                  </ol>
+                </nav>
+              <table width="100%">
+                  {% for file in pfiles %}
+                    {% if file != '.' %}
+                        {% if  file != ".."  %}
+                            <tr >
+                              <td width="20" style="border:1px solid #fff;">
+                                  <a style="text-decoration:none;" href="{% url 'up_down' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}&phone_path={{phone_path}}/{{file}}&para=local" > < &nbsp;&nbsp; </a>
+                                  <a href="{% url 'files' id=request.resolver_match.kwargs.id %}?local_path={{local_path}}&phone_path={{phone_path}}/{{file}}" >{{file}} </a>
+                              </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+              </table>
+                <!--            <button type="button" class="w-100 btn btn-md btn-primary">Get started</button>-->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</main>
+
+<script>
+
+    function xx(x){
+        alert(x+7)
+    }
+</script>
+
+
+
+{% endblock %}
+
